@@ -6,7 +6,7 @@ All is a cloned and customized version of DualTachyon's open firmware found [her
 > [!TIP]
 > There is a work done by others on forks of this repository. I encourage you to take a look at those too. [SEE HERE](https://github.com/egzumer/uv-k5-firmware-custom/discussions/485)
 
-> [!WARNING]  
+> [!WARNING]
 > Use this firmware at your own risk (entirely). There is absolutely no guarantee that it will work in any way shape or form on your radio(s), it may even brick your radio(s), in which case, you'd need to buy another radio.
 Anyway, have fun.
 
