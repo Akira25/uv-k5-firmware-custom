@@ -55,6 +55,7 @@ ENABLE_LTO                    ?= 1
 
 #############################################################
 
+SRC = src
 TARGET = firmware
 
 ifeq ($(ENABLE_CLANG),1)
@@ -67,117 +68,117 @@ ifeq ($(ENABLE_LTO),1)
 	ENABLE_OVERLAY := 0
 endif
 
-BSP_DEFINITIONS := $(wildcard hardware/*/*.def)
-BSP_HEADERS     := $(patsubst hardware/%,bsp/%,$(BSP_DEFINITIONS))
-BSP_HEADERS     := $(patsubst %.def,%.h,$(BSP_HEADERS))
+BSP_DEFINITIONS := $(wildcard $(SRC)/hardware/*/*.def)
+BSP_HEADERS     := $(patsubst $(SRC)/hardware/%,bsp/%,$(BSP_DEFINITIONS))
+BSP_HEADERS     := $(patsubst src/%.def,src/%.h,$(BSP_HEADERS))
 
 OBJS =
 # Startup files
-OBJS += start.o
-OBJS += init.o
+OBJS += $(SRC)/start.o
+OBJS += $(SRC)/init.o
 ifeq ($(ENABLE_OVERLAY),1)
-	OBJS += sram-overlay.o
+	OBJS += $(SRC)/sram-overlay.o
 endif
-OBJS += external/printf/printf.o
+OBJS += $(SRC)/external/printf/printf.o
 
 # Drivers
-OBJS += driver/adc.o
+OBJS += $(SRC)/driver/adc.o
 ifeq ($(ENABLE_UART),1)
-	OBJS += driver/aes.o
+	OBJS += $(SRC)/driver/aes.o
 endif
-OBJS += driver/backlight.o
+OBJS += $(SRC)/driver/backlight.o
 ifeq ($(ENABLE_FMRADIO),1)
-	OBJS += driver/bk1080.o
+	OBJS += $(SRC)/driver/bk1080.o
 endif
-OBJS += driver/bk4819.o
+OBJS += $(SRC)/driver/bk4819.o
 ifeq ($(filter $(ENABLE_AIRCOPY) $(ENABLE_UART),1),1)
-	OBJS += driver/crc.o
+	OBJS += $(SRC)/driver/crc.o
 endif
-OBJS += driver/eeprom.o
+OBJS += $(SRC)/driver/eeprom.o
 ifeq ($(ENABLE_OVERLAY),1)
-	OBJS += driver/flash.o
+	OBJS += $(SRC)/driver/flash.o
 endif
-OBJS += driver/gpio.o
-OBJS += driver/i2c.o
-OBJS += driver/keyboard.o
-OBJS += driver/spi.o
-OBJS += driver/st7565.o
-OBJS += driver/system.o
-OBJS += driver/systick.o
+OBJS += $(SRC)/driver/gpio.o
+OBJS += $(SRC)/driver/i2c.o
+OBJS += $(SRC)/driver/keyboard.o
+OBJS += $(SRC)/driver/spi.o
+OBJS += $(SRC)/driver/st7565.o
+OBJS += $(SRC)/driver/system.o
+OBJS += $(SRC)/driver/systick.o
 ifeq ($(ENABLE_UART),1)
-	OBJS += driver/uart.o
+	OBJS += $(SRC)/driver/uart.o
 endif
 
 # Main
-OBJS += app/action.o
+OBJS += $(SRC)/app/action.o
 ifeq ($(ENABLE_AIRCOPY),1)
-	OBJS += app/aircopy.o
+	OBJS += $(SRC)/app/aircopy.o
 endif
-OBJS += app/app.o
-OBJS += app/chFrScanner.o
-OBJS += app/common.o
-OBJS += app/dtmf.o
+OBJS += $(SRC)/app/app.o
+OBJS += $(SRC)/app/chFrScanner.o
+OBJS += $(SRC)/app/common.o
+OBJS += $(SRC)/app/dtmf.o
 ifeq ($(ENABLE_FLASHLIGHT),1)
-	OBJS += app/flashlight.o
+	OBJS += $(SRC)/app/flashlight.o
 endif
 ifeq ($(ENABLE_FMRADIO),1)
-	OBJS += app/fm.o
+	OBJS += $(SRC)/app/fm.o
 endif
-OBJS += app/generic.o
-OBJS += app/main.o
-OBJS += app/menu.o
+OBJS += $(SRC)/app/generic.o
+OBJS += $(SRC)/app/main.o
+OBJS += $(SRC)/app/menu.o
 ifeq ($(ENABLE_SPECTRUM), 1)
-OBJS += app/spectrum.o
+OBJS += $(SRC)/app/spectrum.o
 endif
-OBJS += app/scanner.o
+OBJS += $(SRC)/app/scanner.o
 ifeq ($(ENABLE_UART),1)
-	OBJS += app/uart.o
+	OBJS += $(SRC)/app/uart.o
 endif
 ifeq ($(ENABLE_AM_FIX), 1)
-	OBJS += am_fix.o
+	OBJS += $(SRC)/am_fix.o
 endif
-OBJS += audio.o
-OBJS += bitmaps.o
-OBJS += board.o
-OBJS += dcs.o
-OBJS += font.o
-OBJS += frequencies.o
-OBJS += functions.o
-OBJS += helper/battery.o
-OBJS += helper/boot.o
-OBJS += misc.o
-OBJS += radio.o
-OBJS += scheduler.o
-OBJS += settings.o
+OBJS += $(SRC)/audio.o
+OBJS += $(SRC)/bitmaps.o
+OBJS += $(SRC)/board.o
+OBJS += $(SRC)/dcs.o
+OBJS += $(SRC)/font.o
+OBJS += $(SRC)/frequencies.o
+OBJS += $(SRC)/functions.o
+OBJS += $(SRC)/helper/battery.o
+OBJS += $(SRC)/helper/boot.o
+OBJS += $(SRC)/misc.o
+OBJS += $(SRC)/radio.o
+OBJS += $(SRC)/scheduler.o
+OBJS += $(SRC)/settings.o
 ifeq ($(ENABLE_AIRCOPY),1)
-	OBJS += ui/aircopy.o
+	OBJS += $(SRC)/ui/aircopy.o
 endif
-OBJS += ui/battery.o
+OBJS += $(SRC)/ui/battery.o
 ifeq ($(ENABLE_FMRADIO),1)
-	OBJS += ui/fmradio.o
+	OBJS += $(SRC)/ui/fmradio.o
 endif
-OBJS += ui/helper.o
-OBJS += ui/inputbox.o
+OBJS += $(SRC)/ui/helper.o
+OBJS += $(SRC)/ui/inputbox.o
 ifeq ($(ENABLE_PWRON_PASSWORD),1)
-	OBJS += ui/lock.o
+	OBJS += $(SRC)/ui/lock.o
 endif
-OBJS += ui/main.o
-OBJS += ui/menu.o
-OBJS += ui/scanner.o
-OBJS += ui/status.o
-OBJS += ui/ui.o
-OBJS += ui/welcome.o
-OBJS += version.o
-OBJS += main.o
+OBJS += $(SRC)/ui/main.o
+OBJS += $(SRC)/ui/menu.o
+OBJS += $(SRC)/ui/scanner.o
+OBJS += $(SRC)/ui/status.o
+OBJS += $(SRC)/ui/ui.o
+OBJS += $(SRC)/ui/welcome.o
+OBJS += $(SRC)/version.o
+OBJS += $(SRC)/main.o
 
 ifeq ($(OS), Windows_NT) # windows
-    TOP := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+    TOP := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))/$(SRC)
     RM = del /Q
     FixPath = $(subst /,\,$1)
     WHERE = where
     NULL_OUTPUT = nul
 else # unix
-    TOP := $(shell pwd)
+    TOP := $(shell pwd)/$(SRC)
     RM = rm -f
     FixPath = $1
     WHERE = which
@@ -228,8 +229,6 @@ ifeq ($(ENABLE_CLANG),0)
 	CFLAGS += -Os -Wall -Werror -mcpu=cortex-m0 -fno-builtin -fshort-enums -fno-delete-null-pointer-checks -std=c2x -MMD
 	# add custom cflags for decreased codesize.
 	CFLAGS += -fmerge-all-constants -fno-guess-branch-probability
-	# CFLAGS += -Os -Wall -Werror -mcpu=cortex-m0 -fno-builtin -fshort-enums -fno-delete-null-pointer-checks -std=c11 -MMD
-	# CFLAGS += -Os -Wall -Werror -mcpu=cortex-m0 -fno-builtin -fshort-enums -fno-delete-null-pointer-checks -std=gnu11 -MMD
 else
 	# Oz needed to make it fit on flash
 	CFLAGS += -Oz -Wall -Werror -mcpu=cortex-m0 -fno-builtin -fshort-enums -fno-delete-null-pointer-checks -std=c2x -MMD
@@ -383,7 +382,7 @@ ifeq ($(ENABLE_CUSTOM_MENU_LAYOUT),1)
 endif
 
 LDFLAGS =
-LDFLAGS += -z noexecstack -mcpu=cortex-m0 -nostartfiles -Wl,-T,firmware.ld -Wl,--gc-sections
+LDFLAGS += -z noexecstack -mcpu=cortex-m0 -nostartfiles -Wl,-T,$(SRC)/firmware.ld -Wl,--gc-sections
 
 # Use newlib-nano instead of newlib
 LDFLAGS += --specs=nano.specs
@@ -398,7 +397,6 @@ INC =
 INC += -I $(TOP)
 INC += -I $(TOP)/external/CMSIS_5/CMSIS/Core/Include/
 INC += -I $(TOP)/external/CMSIS_5/Device/ARM/ARMCM0/Include
-
 LIBS =
 
 DEPS = $(OBJS:.o=.d)
@@ -428,7 +426,7 @@ else ifneq (,$(HAS_CRCMOD))
 	$(info !!!!!!!! run: pip install crcmod)
 	$(info )
 else
-	-$(MY_PYTHON) fw-pack.py $<.bin $(AUTHOR_STRING) $(VERSION_STRING) $<.packed.bin
+	-$(MY_PYTHON) $(SRC)/fw-pack.py $<.bin $(AUTHOR_STRING) $(VERSION_STRING) $<.packed.bin
 endif
 
 	$(SIZE) $<
@@ -446,7 +444,7 @@ $(TARGET): $(OBJS)
 
 bsp/dp32g030/%.h: hardware/dp32g030/%.def
 
-%.o: %.c | $(BSP_HEADERS)
+%.o: %.c #| $(BSP_HEADERS)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 %.o: %.S
