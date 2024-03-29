@@ -230,7 +230,11 @@ void SETTINGS_InitEEPROM(void)
 
 	// 0F40..0F47
 	EEPROM_ReadBuffer(0x0F40, Data, 8);
+#ifdef DISABLE_TX
+	gSetting_F_LOCK            = F_LOCK_ALL;
+#else
 	gSetting_F_LOCK            = (Data[0] < F_LOCK_LEN) ? Data[0] : F_LOCK_DEF;
+#endif
 	gSetting_350TX             = (Data[1] < 2) ? Data[1] : false;  // was true
 #ifdef ENABLE_DTMF_CALLING
 	gSetting_KILLED            = (Data[2] < 2) ? Data[2] : false;
