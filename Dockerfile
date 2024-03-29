@@ -1,10 +1,7 @@
 FROM --platform=amd64 archlinux:latest
-RUN pacman -Syyu base-devel --noconfirm
-RUN pacman -Syyu arm-none-eabi-gcc --noconfirm
-RUN pacman -Syyu arm-none-eabi-newlib --noconfirm
-RUN pacman -Syyu git --noconfirm
-RUN pacman -Syyu python-pip --noconfirm
-RUN pacman -Syyu python-crcmod --noconfirm
+RUN pacman -Sy base-devel arm-none-eabi-gcc arm-none-eabi-newlib git python-pip python-crcmod --noconfirm && \
+    pacman -Scc --noconfirm --ask=4
+
 WORKDIR /app
 COPY . .
 
