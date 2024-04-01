@@ -4,3 +4,6 @@ docker run --rm -v ${PWD}/compiled-firmware:/app/compiled-firmware uvk5 /bin/bas
 
 # custom build command martin
 podman run --rm -v ${PWD}:/app:z -v ${PWD}/compiled-firmware:/app/compiled-firmware:z uvk5 /bin/bash -c "cd /app && make clean && make && cp firmware* compiled-firmware/"
+
+# newest custom build command (after refactoring)
+podman run --rm -v ${PWD}:/app:z uvk5 /bin/bash -c "cd /app && make clean && make && cp firmware* compiled-firmware/"
