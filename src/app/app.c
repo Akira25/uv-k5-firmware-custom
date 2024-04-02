@@ -30,6 +30,9 @@
 #ifdef ENABLE_FLASHLIGHT
 	#include "app/flashlight.h"
 #endif
+#ifdef ENABLE_EXAMPLEAPP
+	#include "app/exampleapp.h"
+#endif
 #ifdef ENABLE_FMRADIO
 	#include "app/fm.h"
 #endif
@@ -1141,6 +1144,10 @@ void APP_TimeSlice10ms(void)
 
 #ifdef ENABLE_FLASHLIGHT
 	FlashlightTimeSlice();
+#endif
+
+#ifdef ENABLE_EXAMPLEAPP
+	ExampleAppTimeSlice();
 #endif
 
 #ifdef ENABLE_VOX

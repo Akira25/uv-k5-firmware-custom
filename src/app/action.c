@@ -25,6 +25,9 @@
 #ifdef ENABLE_FLASHLIGHT
 	#include "app/flashlight.h"
 #endif
+#ifdef ENABLE_EXAMPLEAPP
+	#include "app/exampleapp.h"
+#endif
 #ifdef ENABLE_FMRADIO
 	#include "app/fm.h"
 #endif
@@ -73,6 +76,12 @@ void (*action_opt_table[])(void) = {
 	[ACTION_OPT_FLASHLIGHT] = &ACTION_FlashLight,
 #else
 	[ACTION_OPT_FLASHLIGHT] = &FUNCTION_NOP,
+#endif
+
+#ifdef ENABLE_EXAMPLEAPP
+	[ACTION_OPT_EXAMPLE] = &ACTION_ExampleApp,
+#else
+	[ACTION_OPT_EXAMPLE] = &FUNCTION_NOP,
 #endif
 
 #ifdef ENABLE_VOX

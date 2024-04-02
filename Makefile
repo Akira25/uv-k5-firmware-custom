@@ -40,6 +40,7 @@ ENABLE_REDUCE_LOW_MID_TX_POWER?= 0
 ENABLE_BYP_RAW_DEMODULATORS   ?= 0
 ENABLE_BLMIN_TMP_OFF          ?= 0
 ENABLE_SCAN_RANGES            ?= 1
+ENABLE_EXAMPLEAPP             ?= 1
 
 # ---- DEBUGGING ----
 ENABLE_AM_FIX_SHOW_DATA       ?= 0
@@ -128,6 +129,9 @@ OBJS += $(SRC)/app/main.o
 OBJS += $(SRC)/app/menu.o
 ifeq ($(ENABLE_SPECTRUM), 1)
 OBJS += $(SRC)/app/spectrum.o
+endif
+ifeq ($(ENABLE_EXAMPLEAPP), 1)
+OBJS += $(SRC)/app/exampleapp.o
 endif
 OBJS += $(SRC)/app/scanner.o
 ifeq ($(ENABLE_UART),1)
@@ -252,6 +256,9 @@ CFLAGS += -DAUTHOR_STRING=\"$(AUTHOR_STRING)\" -DVERSION_STRING=\"$(VERSION_STRI
 
 ifeq ($(ENABLE_SPECTRUM),1)
 CFLAGS += -DENABLE_SPECTRUM
+endif
+ifeq ($(ENABLE_EXAMPLEAPP),1)
+CFLAGS += -DENABLE_EXAMPLEAPP
 endif
 ifeq ($(ENABLE_SWD),1)
 	CFLAGS += -DENABLE_SWD
